@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>M1B — Quiz Introductions</title>
+<style>
+:root{--bg1:#0b1022;--bg2:#0f172a;--card:#111c33;--line:#263553;--chip:#1b2a4a;--text:#e5e7eb;--muted:#b7c0d1;--ok:#22c55e;--bad:#ef4444;--warn:#f59e0b}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text)}.wrap{max-width:1040px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}h1{margin:0;font-size:24px}.sub{color:var(--muted)}.card{background:rgba(17,28,51,.9);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}.btn{display:inline-block;padding:10px 14px;border-radius:12px;background:var(--chip);border:1px solid var(--line);color:var(--text);text-decoration:none;cursor:pointer}.btn.ok{border-color:rgba(34,197,94,.7)}.btn.warn{border-color:rgba(245,158,11,.8)}.chip{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:13px;color:var(--text)}.opt{display:block;margin:8px 0}input[type=text]{width:min(650px,100%);padding:10px;border-radius:12px;border:1px solid var(--line);background:#0b1430;color:var(--text)}.feedback{margin-top:10px;padding:10px;border-radius:12px;display:none}.fbok{display:block;border:1px solid rgba(34,197,94,.75);background:rgba(34,197,94,.08)}.fbbad{display:block;border:1px solid rgba(239,68,68,.75);background:rgba(239,68,68,.08)}.corr{margin-top:10px;padding:10px;border:1px dashed var(--line);border-radius:12px;display:none;background:rgba(255,255,255,.03)}.small{color:var(--muted);font-size:14px}
+</style></head><body><div class="wrap"><div class="top"><div><h1>M1B — Quiz Introductions</h1><div class="sub">Q = pratique. 30 questions. Score immédiat. Corrigé disponible.</div></div><a class="btn" href="./M1B_E.html">⬅️ Retour explication</a></div><button class="btn ok" id="checkAll">✅ Corriger tout</button> <button class="btn warn" id="showAll">👀 Afficher les corrigés</button> <span class="chip">Score : <b id="score">0</b> / <b id="total">0</b></span><div id="quiz"></div><div class="card"><a class="btn" href="./M1B_E.html">🔁 Revoir l’explication</a></div></div>
+<script>
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/[’‘]/g,"'").replace(/[.!?]/g,"").replace(/\s+/g," ")}
+function eq(a,b){return norm(a)===norm(b)}
+const Q=[
+["mcq","Traduction","What’s your name? signifie :",["Comment tu t’appelles ?","Où habites-tu ?","Quel âge as-tu ?"],"Comment tu t’appelles ?","What’s your name? = Comment tu t’appelles ?"],
+["mcq","Traduction","My name is Lucas signifie :",["Je m’appelle Lucas","Je suis content","Bonjour Lucas"],"Je m’appelle Lucas","My name is... = Je m’appelle..."],
+["mcq","Traduction","I’m Lucas signifie :",["Je suis Lucas / Moi c’est Lucas","J’aime Lucas","Je vois Lucas"],"Je suis Lucas / Moi c’est Lucas","I’m = I am."],
+["mcq","Traduction","Nice to meet you signifie :",["Enchanté","Au revoir","Merci"],"Enchanté","Formule utilisée lors d’une première rencontre."],
+["mcq","Traduction","Nice to meet you too signifie :",["Enchanté aussi","Bonjour aussi","Merci beaucoup"],"Enchanté aussi","too = aussi."],
+["mcq","Contraction","I’m est la contraction de :",["I am","I is","I have"],"I am","I am → I’m."],
+["mcq","Contraction","What’s est la contraction de :",["What is","What are","What have"],"What is","What is → What’s."],
+["mcq","Choix","Choisis la phrase correcte :",["My name Lucas","My name is Lucas","Name my is Lucas"],"My name is Lucas","Il faut le verbe is."],
+["mcq","Choix","Choisis la question correcte :",["What your name?","What’s your name?","What name your?"],"What’s your name?","What’s = What is."],
+["mcq","Choix","Choisis la phrase correcte :",["Nice meet you","Nice to meet you","Nice you meet"],"Nice to meet you","La formule complète contient to."],
+["fill","Compléter","Complète : My name ___ Lucas.",[],"is","My name is Lucas."],
+["fill","Compléter","Complète : What’s ___ name?",[],"your","What’s your name?"],
+["fill","Compléter","Complète : I ___ Lucas.",[],"am","I am Lucas. En contraction : I’m Lucas."],
+["fill","Compléter","Complète : Nice ___ meet you.",[],"to","Nice to meet you."],
+["fill","Compléter","Complète : Nice to meet you ___.",[],"too","too = aussi."],
+["mcq","Réponse","Ethan dit : What’s your name? Lucas répond :",["I’m Lucas.","Goodbye!","Thank you!"],"I’m Lucas.","Réponse naturelle."],
+["mcq","Réponse","Emma dit : Nice to meet you. Lucas répond :",["Nice to meet you too.","What’s your name?","Good evening."],"Nice to meet you too.","Réponse attendue."],
+["mcq","Situation","Tu veux demander le prénom de quelqu’un. Tu dis :",["What’s your name?","How are you?","Goodbye!"],"What’s your name?","C’est la question du module."],
+["mcq","Situation","Tu veux te présenter rapidement. Tu dis :",["I’m Lucas.","You’re welcome.","Please."],"I’m Lucas.","I’m Lucas = je suis Lucas / moi c’est Lucas."],
+["mcq","Situation","Tu rencontres quelqu’un pour la première fois. Tu dis :",["Nice to meet you.","Good night.","Bye."],"Nice to meet you.","Formule de première rencontre."],
+["fill","Écrire","Écris “Je m’appelle Lucas” en anglais :",[],"My name is Lucas","Réponse complète."],
+["fill","Écrire","Écris “Moi c’est Lucas” en anglais :",[],"I'm Lucas","I’m Lucas."],
+["fill","Écrire","Écris “Comment tu t’appelles ?” en anglais :",[],"What's your name","What’s your name?"],
+["fill","Écrire","Écris “Enchanté” en anglais :",[],"Nice to meet you","Nice to meet you."],
+["fill","Écrire","Écris “Enchanté aussi” en anglais :",[],"Nice to meet you too","Nice to meet you too."],
+["mcq","Prononciation","Le son de meet ressemble plutôt à :",["miit","met","mat"],"miit","ee est long."],
+["mcq","Prononciation","I’m se prononce plutôt :",["aïm","imé","iamé"],"aïm","I’m = une syllabe."],
+["mcq","Collège","Introduce yourself signifie :",["Présente-toi","Lis le texte","Ferme le livre"],"Présente-toi","Consigne fréquente."],
+["mcq","Collège","Ask a question signifie :",["Pose une question","Réponds","Écris ton âge"],"Pose une question","Ask = demander / poser."],
+["mcq","Dialogue","Complète le dialogue : Ethan: Hi, I’m Ethan. Lucas:",["Hi, I’m Lucas.","Goodbye, please.","You’re welcome."],"Hi, I’m Lucas.","Réponse naturelle."]
+];
+const quiz=document.getElementById("quiz");document.getElementById("total").textContent=Q.length;
+function esc(s){return (s||"").toString().replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")}
+function render(){quiz.innerHTML="";Q.forEach((q,i)=>{let [type,tag,p,o,a,e]=q;let body=type==="mcq"?o.map(x=>`<label class="opt"><input type="radio" name="q${i}" value="${esc(x)}"> ${esc(x)}</label>`).join(""):`<input type="text" id="q${i}_text" placeholder="Écris ta réponse ici…">`;let c=document.createElement("div");c.className="card";c.innerHTML=`<b>Question ${i+1}</b> <span class="chip">${esc(tag)}</span><p>${esc(p)}</p>${body}<button class="btn ok" onclick="check(${i})">Corriger</button> <button class="btn warn" onclick="show(${i})">Voir le corrigé</button><div id="fb${i}" class="feedback"></div><div id="co${i}" class="corr"><b>Corrigé :</b> ${esc(a)}<br><span class="small">${esc(e)}</span></div>`;quiz.appendChild(c)})}
+function answer(i){let type=Q[i][0];if(type==="mcq"){let x=document.querySelector(`input[name=q${i}]:checked`);return x?x.value:""}return document.getElementById(`q${i}_text`).value}
+function check(i){let ok=eq(answer(i),Q[i][4]);let fb=document.getElementById("fb"+i);fb.className="feedback "+(ok?"fbok":"fbbad");fb.innerHTML=ok?"✅ Correct !":"❌ Faux. Regarde le corrigé.";if(ok)show(i);score()}
+function show(i){document.getElementById("co"+i).style.display="block"}
+function score(){let n=0;Q.forEach((q,i)=>{if(document.getElementById("fb"+i).classList.contains("fbok"))n++});document.getElementById("score").textContent=n}
+document.getElementById("checkAll").onclick=()=>{Q.forEach((q,i)=>check(i));scrollTo({top:0,behavior:"smooth"})}
+document.getElementById("showAll").onclick=()=>Q.forEach((q,i)=>show(i));render();
+</script></body></html>
