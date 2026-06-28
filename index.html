@@ -1,108 +1,20 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FORMATION LUCAS</title>
-  <style>
-    :root{
-      --bg1:#0b1022; --bg2:#0f172a; --card:#111c33;
-      --line:#263553; --text:#e5e7eb; --muted:#b7c0d1;
-      --blue:#60a5fa; --green:#22c55e; --chip:#1b2a4a;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:var(--text);
-      min-height:100vh;
-    }
-    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 40px}
-    header{
-      border:1px solid var(--line);
-      background:rgba(17,28,51,.9);
-      border-radius:20px;
-      padding:24px;
-      margin-bottom:18px;
-    }
-    h1{margin:0;font-size:34px;letter-spacing:.5px}
-    .subtitle{margin-top:8px;color:var(--muted);font-size:16px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:28px}}
-    .card{
-      border:1px solid var(--line);
-      background:rgba(17,28,51,.9);
-      border-radius:18px;
-      padding:18px;
-    }
-    h2{margin:0 0 12px;font-size:22px;color:#dbeafe}
-    .status{
-      display:inline-block;
-      padding:5px 10px;
-      border-radius:999px;
-      background:var(--chip);
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:13px;
-      margin-bottom:12px;
-    }
-    .ready{color:#dcfce7;border-color:rgba(34,197,94,.6);background:rgba(34,197,94,.08)}
-    .links{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-    a.module{
-      display:block;
-      text-decoration:none;
-      color:var(--text);
-      background:#0b1430;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:13px 14px;
-    }
-    a.module:hover{border-color:var(--blue);filter:brightness(1.08)}
-    .tag{color:var(--blue);font-weight:700;margin-right:6px}
-    .muted{color:var(--muted);line-height:1.45}
-    footer{color:var(--muted);text-align:center;margin-top:22px;font-size:13px}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <h1>FORMATION LUCAS</h1>
-      <div class="subtitle">Plateforme officielle des modules HTML de FORMATION_LUCAS.</div>
-    </header>
-
-    <main class="grid">
-      <section class="card">
-        <h2>ANGLAIS</h2>
-        <span class="status ready">Modules disponibles</span>
-        <div class="links">
-          <a class="module" href="./M1B_E.html" target="_blank" rel="noopener"><span class="tag">M1B</span> Explication - Introductions</a>
-          <a class="module" href="./M1B_Q.html" target="_blank" rel="noopener"><span class="tag">M1B</span> Quiz - Introductions</a>
-          <a class="module" href="./M1C_E.html" target="_blank" rel="noopener"><span class="tag">M1C</span> Explication - Classroom English</a>
-          <a class="module" href="./M1C_Q.html" target="_blank" rel="noopener"><span class="tag">M1C</span> Quiz - Classroom English</a>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>FRANÇAIS</h2>
-        <span class="status">À venir</span>
-        <p class="muted">Les modules de français seront ajoutés progressivement.</p>
-      </section>
-
-      <section class="card">
-        <h2>MATHÉMATIQUES</h2>
-        <span class="status">À venir</span>
-        <p class="muted">Les modules de mathématiques seront ajoutés progressivement.</p>
-      </section>
-
-      <section class="card">
-        <h2>SCIENCES</h2>
-        <span class="status">À venir</span>
-        <p class="muted">Les modules de sciences seront ajoutés progressivement.</p>
-      </section>
-    </main>
-
-    <footer>FORMATION_LUCAS - index V2 - GitHub Pages</footer>
-  </div>
-</body>
-</html>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FORMATION LUCAS</title><style>
+:root{--bg1:#0b1022;--bg2:#0f172a;--card:#111c33;--line:#263553;--text:#e5e7eb;--muted:#b7c0d1}
+body{margin:0;font-family:system-ui,Arial;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text)}
+.wrap{max-width:1000px;margin:auto;padding:24px}.card{background:#111c33;border:1px solid var(--line);border-radius:16px;padding:18px;margin:18px 0}
+.module{display:grid;grid-template-columns:120px 1fr 1fr;gap:10px;padding:10px 0;border-bottom:1px solid #263553}.module:last-child{border-bottom:none}
+.badge{display:inline-block;background:#12381f;border:1px solid #2d8b57;border-radius:999px;padding:4px 10px}
+a{display:block;text-decoration:none;color:#fff;background:#1b2a4a;border:1px solid #314a79;border-radius:10px;padding:10px;text-align:center}
+@media(max-width:700px){.module{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+<div class="card"><h1>FORMATION LUCAS</h1><p>Plateforme officielle des modules HTML</p></div>
+<div class="card"><h2>🇬🇧 ANGLAIS</h2>
+<div class="module"><div><span class="badge">Validé</span></div><a href="./M1A_E.html" target="_blank">M1A Explication</a><a href="./M1A_Q.html" target="_blank">M1A Quiz</a></div>
+<div class="module"><div><span class="badge">Validé</span></div><a href="./M1B_E.html" target="_blank">M1B Explication</a><a href="./M1B_Q.html" target="_blank">M1B Quiz</a></div>
+<div class="module"><div><span class="badge">Validé</span></div><a href="./M1C_E.html" target="_blank">M1C Explication</a><a href="./M1C_Q.html" target="_blank">M1C Quiz</a></div>
+<div class="module"><div><span class="badge">Nouveau</span></div><a href="./M1D_E.html" target="_blank">M1D Explication</a><a href="./M1D_Q.html" target="_blank">M1D Quiz</a></div>
+</div>
+<div class="card"><h2>🇫🇷 FRANÇAIS</h2><p>À venir…</p></div>
+<div class="card"><h2>➗ MATHÉMATIQUES</h2><p>À venir…</p></div>
+<div class="card"><h2>🔬 SCIENCES</h2><p>À venir…</p></div>
+</div></body></html>
