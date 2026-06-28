@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M1A — Quiz Greetings</title>
+<style>
+:root{--bg1:#0b1022;--bg2:#0f172a;--card:#111c33;--line:#263553;--chip:#1b2a4a;--text:#e5e7eb;--muted:#b7c0d1;--ok:#22c55e;--bad:#ef4444;--warn:#f59e0b}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text)}.wrap{max-width:1040px;margin:auto;padding:22px}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}h1{margin:0;font-size:24px}.sub{color:var(--muted)}
+.card{background:rgba(17,28,51,.9);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}.btn{display:inline-block;padding:10px 14px;border-radius:12px;background:var(--chip);border:1px solid var(--line);color:var(--text);text-decoration:none;cursor:pointer}
+.btn.ok{border-color:rgba(34,197,94,.7)}.btn.warn{border-color:rgba(245,158,11,.8)}.chip{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:13px;color:var(--text)}
+.opt{display:block;margin:8px 0}input[type=text]{width:min(650px,100%);padding:10px;border-radius:12px;border:1px solid var(--line);background:#0b1430;color:var(--text)}
+.feedback{margin-top:10px;padding:10px;border-radius:12px;display:none}.good{display:block;border:1px solid rgba(34,197,94,.75);background:rgba(34,197,94,.08)}.bad{display:block;border:1px solid rgba(239,68,68,.75);background:rgba(239,68,68,.08)}
+.corr{margin-top:10px;padding:10px;border:1px dashed var(--line);border-radius:12px;display:none;background:rgba(255,255,255,.03)}.small{color:var(--muted);font-size:14px}
+</style></head><body><div class="wrap">
+<div class="top"><div><h1>M1A — Quiz Greetings</h1><div class="sub">Q = pratique. 25 questions. Score immédiat. Corrigé disponible.</div></div><a class="btn" href="./M1A_E.html">⬅️ Retour explication</a></div>
+<button class="btn ok" id="checkAll">✅ Corriger tout</button> <button class="btn warn" id="showAll">👀 Afficher les corrigés</button> <span class="chip">Score : <b id="score">0</b> / <b id="total">0</b></span>
+<div id="quiz"></div><div class="card"><a class="btn" href="./M1A_E.html">🔁 Revoir l’explication</a></div></div>
+<script>
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/[’']/g,"'").replace(/[.!?]/g,"").replace(/\s+/g," ")}
+function eq(a,b){return norm(a)===norm(b)}
+const Q=[
+["mcq","Traduction","Hello signifie :",["Merci","Bonjour","Au revoir"],"Bonjour","Hello = Bonjour."],
+["mcq","Traduction","Hi signifie :",["Salut","Bonne nuit","Merci"],"Salut","Hi = Salut."],
+["mcq","Traduction","Goodbye signifie :",["Au revoir","Bonjour","Merci"],"Au revoir","Goodbye = Au revoir."],
+["mcq","Traduction","Bye signifie :",["Salut / au revoir","S’il te plaît","Bonsoir"],"Salut / au revoir","Bye est plus familier que Goodbye."],
+["mcq","Traduction","Thank you signifie :",["S'il te plaît","Merci","Salut"],"Merci","Thank you = Merci."],
+["mcq","Traduction","You’re welcome signifie :",["Je t’en prie","Bonjour","Au revoir"],"Je t’en prie","Réponse à Thank you."],
+["mcq","Réponse","Quelqu'un dit : Hello! Tu peux répondre :",["Hi!","Bye!","Thank you!"],"Hi!","Hello → Hi ou Hello."],
+["mcq","Réponse","Quelqu'un dit : Goodbye! Tu peux répondre :",["Hello!","Bye!","Please"],"Bye!","Goodbye → Bye ou Goodbye."],
+["mcq","Réponse","Quelqu'un dit : Thank you! Tu réponds :",["You're welcome!","Good morning!","Bye!"],"You're welcome!","Thank you → You're welcome."],
+["mcq","Usage","Le matin, on peut dire :",["Good morning!","Good evening!","Goodbye!"],"Good morning!","Morning = matin."],
+["mcq","Usage","L’après-midi, on peut dire :",["Good afternoon!","Good night!","Goodbye morning!"],"Good afternoon!","Afternoon = après-midi."],
+["mcq","Usage","Le soir, en arrivant, on peut dire :",["Good evening!","Good morning!","Hi morning!"],"Good evening!","Evening = soir."],
+["mcq","Piège","La forme correcte est :",["Thanks you","Thank you","Thanking you"],"Thank you","On dit Thank you."],
+["mcq","Piège","Good night sert surtout à dire :",["Bonne nuit","Bonjour","Merci"],"Bonne nuit","Good night = bonne nuit, souvent au moment de partir dormir."],
+["fill","Compléter","Ethan: Hello! Lucas: ___",[],"Hi!","Hi ou Hello serait naturel. Ici : Hi!"],
+["fill","Compléter","Ethan: Thank you! Lucas: ___",[],"You're welcome!","You're welcome = je t'en prie."],
+["fill","Compléter","Complète : Water, ___",[],"please","Please rend la demande polie."],
+["mcq","Collège","Greetings signifie :",["Les couleurs","Les salutations","Les nombres"],"Les salutations","Greetings = salutations."],
+["mcq","Collège","Polite expressions signifie :",["Expressions polies","Verbes irréguliers","Nombres"],"Expressions polies","Thank you, please, you're welcome sont des polite expressions."],
+["mcq","Collège","Choose the correct answer signifie :",["Choisis la bonne réponse","Écris une histoire","Lis le texte"],"Choisis la bonne réponse","Consigne fréquente."],
+["mcq","Situation","Tu rencontres un camarade. Tu dis :",["Hello!","Goodbye!","You're welcome!"],"Hello!","On commence par saluer."],
+["mcq","Situation","Tu quittes la classe. Tu dis :",["Bye!","Hello!","Thank you!"],"Bye!","Bye sert à partir."],
+["mcq","Situation","Un professeur t'aide. Tu dis :",["Thank you!","Bye!","Hi!"],"Thank you!","On remercie."],
+["mcq","Situation","Un camarade te remercie. Tu dis :",["You're welcome!","Please","Goodbye!"],"You're welcome!","Réponse correcte à Thank you."],
+["fill","Écrire","Écris “Au revoir !” en anglais avec une formule courte :",[],"Bye!","Bye = salut / au revoir."]
+];
+const quiz=document.getElementById("quiz");document.getElementById("total").textContent=Q.length;
+function esc(s){return (s||"").toString().replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")}
+function render(){quiz.innerHTML="";Q.forEach((q,i)=>{let [type,tag,p,o,a,e]=q;let body=type==="mcq"?o.map(x=>`<label class="opt"><input type="radio" name="q${i}" value="${esc(x)}"> ${esc(x)}</label>`).join(""):`<input type="text" id="q${i}_text" placeholder="Écris ta réponse ici…">`;let c=document.createElement("div");c.className="card";c.innerHTML=`<b>Question ${i+1}</b> <span class="chip">${esc(tag)}</span><p>${esc(p)}</p>${body}<button class="btn ok" onclick="check(${i})">Corriger</button> <button class="btn warn" onclick="show(${i})">Voir le corrigé</button><div id="fb${i}" class="feedback"></div><div id="co${i}" class="corr"><b>Corrigé :</b> ${esc(a)}<br><span class="small">${esc(e)}</span></div>`;quiz.appendChild(c)})}
+function answer(i){let type=Q[i][0];if(type==="mcq"){let x=document.querySelector(`input[name=q${i}]:checked`);return x?x.value:""}return document.getElementById(`q${i}_text`).value}
+function check(i){let ok=eq(answer(i),Q[i][4]);let fb=document.getElementById("fb"+i);fb.className="feedback "+(ok?"good":"bad");fb.innerHTML=ok?"✅ Correct !":"❌ Faux. Regarde le corrigé.";if(ok)show(i);score()}
+function show(i){document.getElementById("co"+i).style.display="block"}
+function score(){let n=0;Q.forEach((q,i)=>{if(document.getElementById("fb"+i).classList.contains("good"))n++});document.getElementById("score").textContent=n}
+document.getElementById("checkAll").onclick=()=>{Q.forEach((q,i)=>check(i));scrollTo({top:0,behavior:"smooth"})}
+document.getElementById("showAll").onclick=()=>Q.forEach((q,i)=>show(i))
+render();
+</script></body></html>
